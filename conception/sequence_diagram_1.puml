@@ -1,0 +1,37 @@
+@startuml sequence_diagram
+actor User
+participant "UI" as UI
+participant "Server" as Server
+database "DB" as DB
+
+User -> UI: "Click Book"
+
+activate UI
+UI -> Server: "Send Credentials"
+deactivate UI
+activate Server
+Server -> Server: "Check Token"
+
+
+alt Succussful Booking
+    Server --> DB: "Send Data"
+    deactivate Server
+    activate DB
+    DB --> DB: "Save Data"
+    DB --> Server: "Return Saved Data"
+    deactivate DB
+    activate Server
+    Server --> UI: "Return Success Data"
+    deactivate Server
+    activate UI
+    UI --> User: "Redirect Home with Success"
+    deactivate UI
+else Failure Booking
+    activate Server
+    Server --> UI: "Return Failure"
+    deactivate Server
+    activate UI
+    UI --> User: "Redirect To Login Page with error"
+    deactivate UI
+end
+@enduml

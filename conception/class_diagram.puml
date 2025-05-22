@@ -1,0 +1,40 @@
+@startuml  HelloEvent - Class Diagram
+
+class User {
+  -id: String
+  -firstName: String
+  -lastName: String
+  -email: String
+  -password: String
+}
+
+class Admin {
+  
+}
+
+class Client {
+  
+}
+
+class Event {
+  -id: String
+  -type: EventType
+
+}
+
+class Booking {
+  -id: String
+  -client: Client
+  -event: Event
+}
+
+enum EventType {
+  
+}
+
+User <|-- Admin : extends
+User <|-- Client : extends
+Admin -- "0..*" Event : manages
+Client "1  " <-- "0..*" Booking : has 
+Event "\n1" *-- "0..* " Booking : has
+@enduml
