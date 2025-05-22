@@ -1,0 +1,63 @@
+@startuml UsecaseDiagram
+left to right direction
+
+actor :User: as A1
+actor :Admin: as A2
+actor :Client: as A3
+
+rectangle HelloEventAPP {
+    usecase (Register) as U1
+    usecase (Login) as U2
+    usecase (Create Event) as U3
+    usecase (Read Event) as U4
+    usecase (Read All Events) as U5
+    usecase (Update Event) as U6
+    usecase (Delete Event) as U7
+
+    usecase (Read Client) as U8
+    usecase (Read All Client) as U9
+    usecase (Delete Client) as U10
+
+    usecase (Create A Booking) as U11
+    usecase (Read A Booking) as U12
+    usecase (Read All Bookings) as U13
+    usecase (Updatet A Booking) as U14
+    usecase (Delete A Booking) as U15
+
+    usecase (Authentication) as U16
+}
+A1 -- A2
+A1 -- A3
+A2 -- U2
+A3 -- U1
+A3 -- U2
+A2 -- U3
+A2 -- U4
+A2 -- U5
+A2 -- U6
+A2 -- U7
+A2 -- U8
+A2 -- U9
+A2 -- U10
+A3 -- U11
+A3 -- U12
+A3 -- U13
+A3 -- U14
+A3 -- U15
+
+U3 --> U16
+U4 --> U16
+U5 --> U16
+U6 --> U16
+U7 --> U16
+U8 --> U16
+U9 --> U16
+U10 --> U16
+U11 --> U16
+U12 --> U16
+U13 --> U16
+U14 --> U16
+U15 --> U16
+
+
+@enduml
