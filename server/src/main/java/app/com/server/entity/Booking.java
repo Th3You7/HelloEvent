@@ -19,9 +19,9 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "eventId")
     private Event event;
     @ManyToOne
-    @JoinColumn(name="client_id")
+    @JoinColumn(name="clientId")
     private Client client;
 }

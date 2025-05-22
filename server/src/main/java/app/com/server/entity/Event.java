@@ -26,8 +26,8 @@ public class Event {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     @ManyToOne
-    @JoinColumn(name = "admin_id")
+    @JoinColumn(name = "adminId")
     private Admin admin;
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Event> bookings = new HashSet<>();
+    private Set<Booking> bookings = new HashSet<>();
 }
