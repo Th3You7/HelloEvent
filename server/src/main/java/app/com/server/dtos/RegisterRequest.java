@@ -14,5 +14,5 @@ public class RegisterRequest {
     private String username;
     private String email;
     private String password;
-    private UserRole userRole = UserRole.ADMIN;
+    private UserRole userRole = UserRole.CLIENT;
 }

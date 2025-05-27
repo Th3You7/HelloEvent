@@ -40,7 +40,7 @@ public class UserService {
     }
 
     public ResponseEntity<String> registerUser(RegisterRequest registerRequest) {
-        if (userRepo.findByUsername(registerRequest.getUsername()).isPresent()) {
+        if (userRepo.findUserByUsername(registerRequest.getUsername()).isPresent()) {
             throw new RuntimeException("Username already exists");
         }
 

@@ -1,6 +1,9 @@
 package app.com.server.utils;
 
 
+import app.com.server.entity.Admin;
+import app.com.server.entity.Client;
+import app.com.server.enums.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,6 +28,15 @@ public class JWTUtil {
     // Generate token
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+
+        if(userDetails instanceof Admin) {
+            claims.put("role", UserRole.ADMIN.toString());
+        }
+
+        if(userDetails instanceof Client) {
+            claims.put("role", UserRole.CLIENT.toString());
+        }
+
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -55,7 +67,7 @@ public class JWTUtil {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    public  <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }

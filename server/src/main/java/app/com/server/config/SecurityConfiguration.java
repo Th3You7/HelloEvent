@@ -1,5 +1,7 @@
 package app.com.server.config;
 
+import app.com.server.enums.UserRole;
+import app.com.server.filter.JWTRequestFilter;
 import app.com.server.service.UserDetailsService;
 import app.com.server.service.UserService;
 import app.com.server.utils.JWTUtil;
@@ -42,19 +44,21 @@ public class SecurityConfiguration {
 
                return http
                 .csrf(AbstractHttpConfigurer::disable)
-                //.securityMatcher("/api/**")
-                .authorizeHttpRequests(auth -> auth
+                       .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/register", "/api/auth/login").permitAll() // Allow public access to /login
+                        .requestMatchers("/api/client/**").hasRole(UserRole.CLIENT.toString()) // private access to /client
+                        .requestMatchers("/api/admin/**").hasRole(UserRole.ADMIN.toString()) // private access to /login
                         .anyRequest().authenticated() // All other requests require auth
                 )
+                .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No sessions
                 ).build();
     }
 
-//    @Bean
-//    public JwtRequestFilter jwtRequestFilter() {
-//        return new JwtRequestFilter(jwtUtil, userService);
-//    }
+    @Bean
+    public JWTRequestFilter jwtRequestFilter() {
+        return new JWTRequestFilter(jwtUtil, userDetailsService);
+    }
 
 }
