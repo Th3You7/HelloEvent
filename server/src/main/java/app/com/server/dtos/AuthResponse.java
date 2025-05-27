@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class AuthRequest {
+public class AuthResponse {
     private String username;
-    private String password;
+    private String token;
 }
